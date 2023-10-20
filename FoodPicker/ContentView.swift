@@ -19,16 +19,26 @@ struct ContentView: View {
             Text("今天吃啥子？")
                 .font(.title)
                 .bold()
-            Text(selectedFood ?? "还没设定")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(.green)
+            if selectedFood != .none {
+                Text(selectedFood ?? "")
+                    .font(.largeTitle)
+                    .bold()
+                    .foregroundColor(.green)
+            }
             Button("告诉我!") {
                 selectedFood = food.shuffled().filter{ $0 != selectedFood}.first
-            }.font(.title)
+            }
+            .font(.title)
+            .buttonStyle(.borderedProminent)
+
+            Button("重置") {
+                selectedFood = .none
+            }
+            .font(.title)
             .buttonStyle(.borderedProminent)
         }
         .padding()
+        .animation(.easeInOut, value: selectedFood)
     }
 }
 
